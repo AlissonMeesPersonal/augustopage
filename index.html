@@ -33,10 +33,10 @@
     .proof{display:flex;gap:20px;flex-wrap:wrap;margin-top:27px;color:#85858d;font-size:.83rem}
     .proof b{color:#eee}
     .hero-media{position:relative;min-height:620px;display:grid;place-items:center}
-    .hero-media:before{content:"";position:absolute;width:84%;height:76%;background:radial-gradient(ellipse,rgba(239,23,31,.22),transparent 70%);filter:blur(34px)}
-    .video-shell{position:relative;width:min(560px,100%);aspect-ratio:4/5;overflow:hidden;background:#060608;border:1px solid rgba(255,255,255,.06);border-radius:28px;box-shadow:0 32px 90px rgba(0,0,0,.55),0 0 42px rgba(239,23,31,.12)}
-    .video-shell:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.03),rgba(0,0,0,.18))}
-    .video-shell video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#050505;display:block}
+    .hero-media:before{content:"";position:absolute;width:82%;height:78%;background:radial-gradient(ellipse,rgba(239,23,31,.22),transparent 70%);filter:blur(34px)}
+    .video-shell{position:relative;width:min(430px,100%);aspect-ratio:9/16;overflow:hidden;background:#060608;border:1px solid rgba(255,255,255,.06);border-radius:28px;box-shadow:0 32px 90px rgba(0,0,0,.55),0 0 42px rgba(239,23,31,.12)}
+    .video-shell:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.03),rgba(0,0,0,.16))}
+    .video-shell video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#050505;display:block;pointer-events:none}
     .marquee{border-block:1px solid var(--line);overflow:hidden}
     .track{display:flex;width:max-content;gap:42px;padding:15px 0;animation:move 24s linear infinite;color:#aaaab1;text-transform:uppercase;font-size:.72rem;letter-spacing:.17em;font-weight:900}
     .track span:before{content:"✦";color:var(--red);margin-right:42px}
@@ -95,8 +95,8 @@
     .foot-right{text-align:right;color:#686871;font-size:.78rem}
     .reveal{opacity:0;transform:translateY(20px);transition:.65s}
     .reveal.show{opacity:1;transform:none}
-    @media(max-width:950px){.nav-links{display:none}.hero-grid,.section-head,.journey,.proof-grid,.final-box{grid-template-columns:1fr}.hero-copy{text-align:center}.eyebrow,.actions,.proof{justify-content:center}.lead{margin-left:auto;margin-right:auto}.hero-media{min-height:520px}.results{grid-template-columns:1fr}.side{grid-template-columns:1fr 1fr}.sticky{position:static}.testimonial:nth-child(n){grid-column:span 6}.footer{grid-template-columns:1fr;text-align:center}.footer img{margin:auto}.foot-right{text-align:center}}
-    @media(max-width:620px){.wrap{width:min(100% - 28px,1220px)}.nav{height:78px}.brand img{width:170px;height:72px;object-position:left center}.cta{padding:10px 12px;font-size:.76rem}.hero{padding-top:110px;min-height:auto}h1{font-size:clamp(3rem,16vw,5.1rem)}.actions{display:grid}.actions a{width:100%}.hero-media{min-height:430px}.video-shell{width:100%;border-radius:22px}.section-head{gap:20px}.results{display:block}.main-result{min-height:520px;margin-bottom:16px}.photo{min-height:520px}.side{grid-template-columns:1fr}.journey{gap:32px}.steps{padding-left:28px}.testimonials{grid-template-columns:1fr}.testimonial:nth-child(n){grid-column:auto}.final-copy{padding:35px 24px}.final-logo{min-height:260px}.footer img{width:160px}}
+    @media(max-width:950px){.nav-links{display:none}.hero-grid,.section-head,.journey,.proof-grid,.final-box{grid-template-columns:1fr}.hero-copy{text-align:center}.eyebrow,.actions,.proof{justify-content:center}.lead{margin-left:auto;margin-right:auto}.hero-media{min-height:580px}.video-shell{width:min(420px,100%)}.results{grid-template-columns:1fr}.side{grid-template-columns:1fr 1fr}.sticky{position:static}.testimonial:nth-child(n){grid-column:span 6}.footer{grid-template-columns:1fr;text-align:center}.footer img{margin:auto}.foot-right{text-align:center}}
+    @media(max-width:620px){.wrap{width:min(100% - 28px,1220px)}.nav{height:78px}.brand img{width:170px;height:72px;object-position:left center}.cta{padding:10px 12px;font-size:.76rem}.hero{padding-top:110px;min-height:auto}h1{font-size:clamp(3rem,16vw,5.1rem)}.actions{display:grid}.actions a{width:100%}.hero-media{min-height:610px}.video-shell{width:min(100%,360px);border-radius:22px}.section-head{gap:20px}.results{display:block}.main-result{min-height:520px;margin-bottom:16px}.photo{min-height:520px}.side{grid-template-columns:1fr}.journey{gap:32px}.steps{padding-left:28px}.testimonials{grid-template-columns:1fr}.testimonial:nth-child(n){grid-column:auto}.final-copy{padding:35px 24px}.final-logo{min-height:260px}.footer img{width:160px}}
   </style>
 </head>
 <body>
@@ -120,7 +120,9 @@
         </div>
         <div class="hero-media reveal">
           <div class="video-shell">
-            <video id="heroVideo" autoplay muted loop playsinline preload="auto"></video>
+            <video id="heroVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback">
+              <source src="assets/augusto-hero.mp4?v=hd-20260910" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
@@ -154,9 +156,8 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    async function loadHeroVideo(){
-      const video = document.getElementById('heroVideo');
-      if(!video) return;
+    const video = document.getElementById('heroVideo');
+    if(video){
       video.muted = true;
       video.loop = true;
       video.autoplay = true;
@@ -164,26 +165,12 @@
       video.setAttribute('muted','');
       video.setAttribute('playsinline','');
       video.setAttribute('webkit-playsinline','');
-      try{
-        const response = await fetch('assets/hero-encoded.txt?v=3', { cache: 'no-store' });
-        if(!response.ok) throw new Error('video-base64-not-found');
-        const base64 = (await response.text()).trim();
-        const binary = atob(base64);
-        const bytes = new Uint8Array(binary.length);
-        for(let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-        const url = URL.createObjectURL(new Blob([bytes], { type: 'video/mp4' }));
-        video.src = url;
-      }catch(error){
-        video.src = 'assets/augusto-hero.mp4?v=4';
-      }
-      video.load();
-      const start = () => video.play().catch(() => {});
-      video.addEventListener('canplay', start, { once: true });
-      video.addEventListener('loadeddata', start, { once: true });
-      start();
+      const startVideo = () => video.play().catch(() => {});
+      video.addEventListener('loadedmetadata', startVideo, { once:true });
+      video.addEventListener('canplay', startVideo, { once:true });
+      video.addEventListener('visibilitychange', startVideo);
+      startVideo();
     }
-
-    loadHeroVideo();
 
     const io = new IntersectionObserver(entries => entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('show')), { threshold: .12 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
